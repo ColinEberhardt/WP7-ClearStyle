@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ClearStyle.PullDownItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    Margin="0,-75,0,0"
+    VerticalAlignment="Top">
+
+  <Grid Background="Red"
+        x:Name="LayoutRoot">
+    
+    <Grid Background="{StaticResource itemGradient}"
+              Height="75">
+      <!-- task text -->
+      <TextBlock Text="Pull to create new item"
+                     Margin="15,15,0,15" FontSize="30"
+                     x:Name="pullText"/>
+    </Grid>
+  </Grid>
+</UserControl>

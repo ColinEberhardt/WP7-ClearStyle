@@ -1,0 +1,100 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="ClearStyle.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:local="clr-namespace:ClearStyle"
+    xmlns:conv="clr-namespace:ClearStyle.Converters"
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+  
+  <phone:PhoneApplicationPage.Resources>
+    <conv:ColorToBrushConverter x:Key="ColorToBrushConverter"/>
+    <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+    <ControlTemplate TargetType="TextBox" x:Key="textBoxTemplate">
+      <Border Margin="{StaticResource PhoneTouchTargetOverhang}" Padding="3 0 0 5" >
+      <ContentControl x:Name="ContentElement" BorderThickness="0"
+                      Foreground="White" 
+                      HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
+      </Border>
+    </ControlTemplate>
+
+  </phone:PhoneApplicationPage.Resources>
+
+  <!--LayoutRoot is the root grid where all page content is placed-->
+  <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="ContentPanel" Margin="12,0,12,0">
+
+      <local:PullDownItem x:Name="pullDownItemBehind"
+                          Opacity="0"
+                          VerticalAlignment="Top"/>
+      
+      <ItemsControl ItemsSource="{Binding}"
+                    x:Name="todoList">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Background="{Binding Path=Color, Converter={StaticResource ColorToBrushConverter}}"
+                    Height="75"
+                    x:Name="todoItem"
+                    Loaded="Border_Loaded">           
+              
+              <Grid Background="{StaticResource itemGradient}">                
+                <!-- task text -->
+                <TextBlock Text="{Binding Text}"
+                           Margin="15,15,0,15" FontSize="30"
+                           x:Name="taskText"/>
+
+                <!-- editable task text -->
+                <TextBox Text="{Binding Text, Mode=TwoWay}"
+                         Template="{StaticResource textBoxTemplate}"
+                         FontSize="30"
+                         Foreground="White"
+                         VerticalAlignment="Center"
+                         Visibility="Collapsed"
+                         x:Name="taskTextEdit"/>
+
+                <!-- the strike-through that is shown when a task is complete -->
+                <Line Visibility="{Binding Path=Completed, Converter={StaticResource BoolToVisibilityConverter}}"
+                      X1="0" Y1="0" X2="1" Y2="0" 
+                      Stretch="UniformToFill"
+                      Stroke="White" StrokeThickness="2"
+                      Margin="8,5,8,0"/>
+                
+                <!-- a tick and a cross, rendered off screen -->
+                <local:TickAndCross Opacity="0" x:Name="tickAndCross"/>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        
+        <ItemsControl.Template>
+          <ControlTemplate TargetType="ItemsControl">
+            <ScrollViewer x:Name="scrollViewer"
+                          ManipulationMode="Control">
+              <ItemsPresenter/>
+            </ScrollViewer>
+          </ControlTemplate>
+        </ItemsControl.Template>
+      </ItemsControl>
+
+      <local:PullDownItem x:Name="pullDownItemInFront"
+                          Opacity="0"/>
+
+      <local:DragImage x:Name="dragImageControl"
+                       VerticalAlignment="Top"
+                       Visibility="Collapsed"/>
+
+      
+    </Grid>
+  </Grid>
+
+</phone:PhoneApplicationPage>

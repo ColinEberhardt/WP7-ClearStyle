@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ClearStyle.DragImage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+  <Grid x:Name="LayoutRoot">
+    <!-- the image that displays the dragged item -->
+    <Image x:Name="dragImage"
+            VerticalAlignment="Top">
+    </Image>
+
+    <!-- lower drop shadow -->
+    <Rectangle Height="10"
+                  VerticalAlignment="Bottom">
+      <Rectangle.Fill>
+        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+          <GradientStop Color="#AA000000"/>
+          <GradientStop Color="#00000000" Offset="1"/>
+        </LinearGradientBrush>
+      </Rectangle.Fill>
+      <Rectangle.RenderTransform>
+        <TranslateTransform Y="10"/>
+      </Rectangle.RenderTransform>
+    </Rectangle>
+
+    <!-- upper drop shadow -->
+    <Rectangle Height="10"
+                  VerticalAlignment="Top">
+      <Rectangle.Fill>
+        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+          <GradientStop Color="#00000000"/>
+          <GradientStop Color="#AA000000" Offset="1"/>
+        </LinearGradientBrush>
+      </Rectangle.Fill>
+      <Rectangle.RenderTransform>
+        <TranslateTransform Y="-10"/>
+      </Rectangle.RenderTransform>
+    </Rectangle>
+  </Grid>
+</UserControl>
