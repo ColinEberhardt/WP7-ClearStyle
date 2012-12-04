@@ -141,6 +141,17 @@ namespace ClearStyle.Interactions
             // are the two items next to each other?
             if (Math.Abs(_itemOneIndex - _itemTwoIndex) == 1)
             {
+              if (_itemOneIndex > _itemTwoIndex)
+              {
+                // We need to swap the two
+                int tempIndex = _itemOneIndex;
+                _itemOneIndex = _itemTwoIndex;
+                _itemTwoIndex = tempIndex;
+
+                var tempItem = itemOne;
+                itemOne = itemTwo;
+                itemTwo = tempItem;
+              }
               IsActive = true;
 
               // determine where to locate the new item placeholder
