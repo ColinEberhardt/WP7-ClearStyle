@@ -159,7 +159,7 @@ namespace ClearStyle.Interactions
           {
             action = () =>
             {
-              // clone the list
+                // remove the item
               _todoItems.Remove(deletedItem);
 
               // re-populate our ObservableCollection
