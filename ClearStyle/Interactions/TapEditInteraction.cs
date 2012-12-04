@@ -46,7 +46,7 @@ namespace ClearStyle.Interactions
     public void EditItem(ToDoItemViewModel editItem)
     {
       _editItem = editItem;
-
+        
       // find the edit and static text controls
       var container = _todoList.ItemContainerGenerator.ContainerFromItem(editItem);
       _taskTextEdit = FindNamedDescendant<TextBox>(container, "taskTextEdit");
@@ -93,23 +93,20 @@ namespace ClearStyle.Interactions
     {
       if (e.Key == Key.Enter)
       {
-        EditFieldVisible(false);
-        IsActive = false;
+        EndEdit();
       }
+    }
+
+    private void EndEdit()
+    {
+      _taskTextEdit.LostFocus -= TaskTextEdit_LostFocus;
+      EditFieldVisible(false);
+      IsActive = false;
     }
 
     private void TaskTextEdit_LostFocus(object sender, RoutedEventArgs e)
     {
-      TextBox tx = sender as TextBox;
-      tx.LostFocus -= TaskTextEdit_LostFocus;
-
-      tx.Visibility = Visibility.Collapsed;
-
-      TextBlock tb = FindNamedDescendant<TextBlock>(tx.Parent,"taskText");
-      tb.Visibility = Visibility.Visible;
-
-      EditFieldVisible(false);
-      IsActive = false;
+        EndEdit();
     }
 
     private T FindNamedDescendant<T>(DependencyObject element, string name)
