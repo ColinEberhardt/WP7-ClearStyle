@@ -5,17 +5,3 @@ C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug
 C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\PullDownItem.g.cs
 C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\TickAndCross.g.cs
 C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\ClearStyle.g.resources
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\ApplicationIcon.png
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\Background.png
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\ClearStyle.dll
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\ClearStyle.pdb
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\ClearStyle.dll
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\ClearStyle.pdb
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\AppManifest.xaml
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\ClearStyle.xap
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\XapCacheFile.xml
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\Microsoft.Phone.Controls.Toolkit.dll
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\Microsoft.Phone.Controls.dll
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\Microsoft.Phone.Controls.xml
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\Community.CsharpSqlite.SqlLiteClient.WP7.dll
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\Community.CsharpSqlite.WP7.dll
