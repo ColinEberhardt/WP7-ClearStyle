@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5AFC8F
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearStyleScheduleAgent", "ClearStyleScheduleAgent\ClearStyleScheduleAgent.csproj", "{320F59F9-82B8-4F79-BB68-E3E1D1F7E999}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearStyle.Core", "ClearStyle.Core\ClearStyle.Core.csproj", "{5EC2F146-1721-48FF-AF79-A6C434A5116D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +26,14 @@ Global
 		{B0CD690C-9462-4C3A-8E27-CB080B27366C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0CD690C-9462-4C3A-8E27-CB080B27366C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B0CD690C-9462-4C3A-8E27-CB080B27366C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{320F59F9-82B8-4F79-BB68-E3E1D1F7E999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{320F59F9-82B8-4F79-BB68-E3E1D1F7E999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{320F59F9-82B8-4F79-BB68-E3E1D1F7E999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{320F59F9-82B8-4F79-BB68-E3E1D1F7E999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC2F146-1721-48FF-AF79-A6C434A5116D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC2F146-1721-48FF-AF79-A6C434A5116D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC2F146-1721-48FF-AF79-A6C434A5116D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC2F146-1721-48FF-AF79-A6C434A5116D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -23,5 +23,10 @@ namespace ClearStyle.Core.Managers
 		{
 			ClearStyleRepository<TodoItem>.Delete(todo);
 		}
+
+		public int CountUnCompletedTodos()
+		{
+			return ClearStyleRepository<TodoItem>.GetAllBy(x => !x.Completed).Count();
+		}
 	}
 }

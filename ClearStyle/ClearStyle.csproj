@@ -33,7 +33,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -50,12 +50,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Community.CsharpSqlite.SqlLiteClient.WP7">
-      <HintPath>..\packages\wp7sqlite.0.1.1\lib\sl4-windowsphone71\Community.CsharpSqlite.SqlLiteClient.WP7.dll</HintPath>
-    </Reference>
-    <Reference Include="Community.CsharpSqlite.WP7">
-      <HintPath>..\packages\wp7sqlite.0.1.1\lib\sl4-windowsphone71\Community.CsharpSqlite.WP7.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\packages\SilverlightToolkitWP.4.2012.6.25\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
@@ -75,12 +69,6 @@
     </Compile>
     <Compile Include="Converters\ColorToBrushConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
-    <Compile Include="Core\Data\Models\IBusinessEntity.cs" />
-    <Compile Include="Core\Data\Models\TodoItem.cs" />
-    <Compile Include="Core\Data\Providers\SQLite.cs" />
-    <Compile Include="Core\Data\Repositories\ClearStyleDatabase.cs" />
-    <Compile Include="Core\Data\Repositories\ClearStyleRepository.cs" />
-    <Compile Include="Core\Managers\TodoItemManager.cs" />
     <Compile Include="DragImage.xaml.cs">
       <DependentUpon>DragImage.xaml</DependentUpon>
     </Compile>
@@ -153,6 +141,16 @@
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClearStyle.Core\ClearStyle.Core.csproj">
+      <Project>{5EC2F146-1721-48FF-AF79-A6C434A5116D}</Project>
+      <Name>ClearStyle.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClearStyleScheduleAgent\ClearStyleScheduleAgent.csproj">
+      <Project>{320F59F9-82B8-4F79-BB68-E3E1D1F7E999}</Project>
+      <Name>ClearStyleScheduleAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

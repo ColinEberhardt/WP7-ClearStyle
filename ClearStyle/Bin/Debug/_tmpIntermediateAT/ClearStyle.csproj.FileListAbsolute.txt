@@ -1,7 +1,0 @@
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\ClearStyle.csprojResolveAssemblyReference.cache
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\App.g.cs
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\DragImage.g.cs
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\MainPage.g.cs
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\PullDownItem.g.cs
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\TickAndCross.g.cs
-C:\Users\jjchiw\Documents\code4fun\cs\github\WP7-ClearStyle\ClearStyle\bin\Debug\_tmpIntermediateAT\ClearStyle.g.resources
