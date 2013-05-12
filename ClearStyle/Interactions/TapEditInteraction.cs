@@ -9,113 +9,118 @@ using System.Collections.Generic;
 
 namespace ClearStyle.Interactions
 {
-  /// <summary>
-  /// An interaction that allows a user to edit an item by tapping on it.
-  /// </summary>
-  public class TapEditInteraction : InteractionBase
-  {
-    private TextBlock _taskText;
-    private TextBox _taskTextEdit;
-    private string _originalText;
-    private ToDoItemViewModel _editItem;
+	/// <summary>
+	/// An interaction that allows a user to edit an item by tapping on it.
+	/// </summary>
+	public class TapEditInteraction : InteractionBase
+	{
+		private TextBlock _taskText;
+		private TextBox _taskTextEdit;
+		private string _originalText;
+		private ToDoItemViewModel _editItem;
+		
 
-    public override void Initialise(ItemsControl todoList, ResettableObservableCollection<ToDoItemViewModel> todoItems)
-    {
-      base.Initialise(todoList, todoItems);
+		public override void Initialise(ItemsControl todoList, ResettableObservableCollection<ToDoItemViewModel> todoItems)
+		{
+			base.Initialise(todoList, todoItems);
 
-      todoList.KeyUp += ItemsControl_KeyUp;
-    } 
+			todoList.KeyUp += ItemsControl_KeyUp;
+		}
 
-    public override void AddElement(FrameworkElement element)
-    {
-      element.Tap += Element_Tap;      
-    }
+		public override void AddElement(FrameworkElement element)
+		{
+			element.Tap += Element_Tap;
+		}
 
-    private void Element_Tap(object sender, GestureEventArgs e)
-    {
-      if (!IsEnabled)
-        return;
+		private void Element_Tap(object sender, GestureEventArgs e)
+		{
+			if (!IsEnabled)
+				return;
 
-      IsActive = true;
+			IsActive = true;
 
-      // find the edit and static text controls
-      var border = sender as Border;
-      EditItem(border.DataContext as ToDoItemViewModel);
-    }
+			// find the edit and static text controls
+			var border = sender as Border;
+			EditItem(border.DataContext as ToDoItemViewModel);
+		}
 
-    public void EditItem(ToDoItemViewModel editItem)
-    {
-      _editItem = editItem;
-        
-      // find the edit and static text controls
-      var container = _todoList.ItemContainerGenerator.ContainerFromItem(editItem);
-      _taskTextEdit = FindNamedDescendant<TextBox>(container, "taskTextEdit");
-      _taskText = FindNamedDescendant<TextBlock>(container, "taskText");
+		public void EditItem(ToDoItemViewModel editItem)
+		{
+			_editItem = editItem;
 
-      // store the original text to allow undo
-      _originalText = _taskTextEdit.Text;
+			// find the edit and static text controls
+			var container = _todoList.ItemContainerGenerator.ContainerFromItem(editItem);
+			_taskTextEdit = FindNamedDescendant<TextBox>(container, "taskTextEdit");
+			_taskText = FindNamedDescendant<TextBlock>(container, "taskText");
 
-      EditFieldVisible(true);
+			// store the original text to allow undo
+			_originalText = _taskTextEdit.Text;
 
-      // set the caret position to the end of the text field
-      _taskTextEdit.Focus();
-      _taskTextEdit.Select(_originalText.Length, 0);
-      _taskTextEdit.LostFocus += TaskTextEdit_LostFocus;
+			EditFieldVisible(true);
 
-      // fade out all other items
-      ((FrameworkElement)_todoList.ItemContainerGenerator.ContainerFromItem(_editItem)).Opacity = 1;
-      var elements = _todoItems.Where(i => i != _editItem)
-                               .Select(i => _todoList.ItemContainerGenerator.ContainerFromItem(i))
-                               .Cast<FrameworkElement>();
-      foreach (var el in elements)
-      {
-        el.Animate(1.0, 0.7, FrameworkElement.OpacityProperty, 800, 0);
-      }
-    }
+			// set the caret position to the end of the text field
+			_taskTextEdit.Focus();
+			_taskTextEdit.Select(_originalText.Length, 0);
+			_taskTextEdit.LostFocus += TaskTextEdit_LostFocus;
 
-    private void EditFieldVisible(bool visible)
-    {
-      _taskTextEdit.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
-      _taskText.Visibility = visible ? Visibility.Collapsed : Visibility.Visible;
+			// fade out all other items
+			((FrameworkElement)_todoList.ItemContainerGenerator.ContainerFromItem(_editItem)).Opacity = 1;
+			var elements = _todoItems.Where(i => i != _editItem)
+									 .Select(i => _todoList.ItemContainerGenerator.ContainerFromItem(i))
+									 .Cast<FrameworkElement>();
+			foreach (var el in elements)
+			{
+				el.Animate(1.0, 0.7, FrameworkElement.OpacityProperty, 800, 0);
+			}
+		}
 
-      if (visible == false)
-      {
-        var elements = _todoItems.Select(i => _todoList.ItemContainerGenerator.ContainerFromItem(i))
-                                 .Cast<FrameworkElement>();
-        foreach (var el in elements)
-        {
-          el.Animate(null, 1.0, FrameworkElement.OpacityProperty, 800, 0);
-        }
-      }
-    }
+		private void EditFieldVisible(bool visible)
+		{
+			_taskTextEdit.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+			_taskText.Visibility = visible ? Visibility.Collapsed : Visibility.Visible;
 
-    private void ItemsControl_KeyUp(object sender, KeyEventArgs e)
-    {
-      if (e.Key == Key.Enter)
-      {
-        EndEdit();
-      }
-    }
+			if (visible == false)
+			{
+				var elements = _todoItems.Select(i => _todoList.ItemContainerGenerator.ContainerFromItem(i))
+										 .Cast<FrameworkElement>();
+				foreach (var el in elements)
+				{
+					el.Animate(null, 1.0, FrameworkElement.OpacityProperty, 800, 0);
+				}
+			}
+		}
 
-    private void EndEdit()
-    {
-      _taskTextEdit.LostFocus -= TaskTextEdit_LostFocus;
-      EditFieldVisible(false);
-      IsActive = false;
-    }
+		private void ItemsControl_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				_editItem.Text = _taskTextEdit.Text;
+				EndEdit();
+			}
+		}
 
-    private void TaskTextEdit_LostFocus(object sender, RoutedEventArgs e)
-    {
-        EndEdit();
-    }
+		private void EndEdit()
+		{
+			_taskTextEdit.LostFocus -= TaskTextEdit_LostFocus;
+			EditFieldVisible(false);
+			IsActive = false;
+			var model =_editItem.ToModel();
+			_todoManager.Save(model);
+			
+		}
 
-    private T FindNamedDescendant<T>(DependencyObject element, string name)
-      where T : FrameworkElement
-    {
-      return element.Descendants()
-                    .OfType<T>()
-                    .Where(i => i.Name == name)
-                    .Single();
-    }
-  }
+		private void TaskTextEdit_LostFocus(object sender, RoutedEventArgs e)
+		{
+			EndEdit();
+		}
+
+		private T FindNamedDescendant<T>(DependencyObject element, string name)
+		  where T : FrameworkElement
+		{
+			return element.Descendants()
+						  .OfType<T>()
+						  .Where(i => i.Name == name)
+						  .Single();
+		}
+	}
 }

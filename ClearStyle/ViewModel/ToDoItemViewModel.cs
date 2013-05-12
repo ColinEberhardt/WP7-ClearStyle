@@ -12,61 +12,89 @@ using System.ComponentModel;
 
 namespace ClearStyle.ViewModel
 {
-  /// <summary>
-  /// A single todo item.
-  /// </summary>
-  public class ToDoItemViewModel : INotifyPropertyChanged
-  {
-    private string _text;
+	/// <summary>
+	/// A single todo item.
+	/// </summary>
+	public class ToDoItemViewModel : INotifyPropertyChanged
+	{
+		public int Id { get; private set; }
 
-    private bool _completed;
+		private string _text;
 
-    private Color _color = Colors.Red;
+		private bool _completed;
 
-    public string Text
-    {
-      get { return _text; }
-      set
-      {
-        _text = value;
-        OnPropertyChanged("Text");
-      }
-    }
+		private Color _color = Colors.Red;
 
-    public bool Completed
-    {
-      get { return _completed; }
-      set
-      {
-        _completed = value;
-        OnPropertyChanged("Completed");
-      }
-    }
+		public string Text
+		{
+			get { return _text; }
+			set
+			{
+				_text = value;
+				OnPropertyChanged("Text");
+			}
+		}
 
-    public Color Color
-    {
-      get { return _color; }
-      set
-      {
-        _color = value;
-        OnPropertyChanged("Color");
-      }
-    }
+		public bool Completed
+		{
+			get { return _completed; }
+			set
+			{
+				_completed = value;
+				OnPropertyChanged("Completed");
+			}
+		}
 
-    public ToDoItemViewModel(string text)
-    {
-      Text = text;
-    }
+		public Color Color
+		{
+			get { return _color; }
+			set
+			{
+				_color = value;
+				OnPropertyChanged("Color");
+			}
+		}
 
-    public event PropertyChangedEventHandler PropertyChanged;
+		public ToDoItemViewModel(string text)
+		{
+			Text = text;
+		}
 
-    protected void OnPropertyChanged(string property)
-    {
-      if (PropertyChanged != null)
-      {
-        PropertyChanged(this, new PropertyChangedEventArgs(property));
-      }
-    }
+		public ToDoItemViewModel(Core.Data.Models.TodoItem model)
+		{
+			Update(model);
+		}
 
-  }
+		public void Update(Core.Data.Models.TodoItem model)
+		{
+			Id = model.Id;
+			Text = model.Text;
+			Completed = model.Completed;
+			if (Completed)
+			{
+				Color = Colors.Green;
+			}
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		protected void OnPropertyChanged(string property)
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, new PropertyChangedEventArgs(property));
+			}
+		}
+
+
+		internal Core.Data.Models.TodoItem ToModel()
+		{
+			return new Core.Data.Models.TodoItem
+			{
+				Id = this.Id,
+				Text = this.Text,
+				Completed = this.Completed
+			};
+		}
+	}
 }

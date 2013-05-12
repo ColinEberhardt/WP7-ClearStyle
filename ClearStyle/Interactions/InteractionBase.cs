@@ -5,92 +5,94 @@ using System.Collections.Generic;
 using ClearStyle.ViewModel;
 using LinqToVisualTree;
 using System.Linq;
+using ClearStyle.Core.Managers;
 
 namespace ClearStyle.Interactions
 {
-  /// <summary>
-  /// A base class for interactions.
-  /// </summary>
-  public abstract class InteractionBase : IInteraction
-  {
-    private bool _isActive = false;
+	/// <summary>
+	/// A base class for interactions.
+	/// </summary>
+	public abstract class InteractionBase : IInteraction
+	{
+		private bool _isActive = false;
 
-    protected ItemsControl _todoList;
-    protected ResettableObservableCollection<ToDoItemViewModel> _todoItems;
-    protected ScrollViewer _scrollViewer;
+		protected ItemsControl _todoList;
+		protected ResettableObservableCollection<ToDoItemViewModel> _todoItems;
+		protected ScrollViewer _scrollViewer;
+		protected TodoItemManager _todoManager;
 
-    public virtual void Initialise(ItemsControl todoList, ResettableObservableCollection<ToDoItemViewModel> todoItems)
-    {
-      _todoList = todoList;
-      _todoItems = todoItems;
+		public virtual void Initialise(ItemsControl todoList, ResettableObservableCollection<ToDoItemViewModel> todoItems)
+		{
+			_todoList = todoList;
+			_todoItems = todoItems;
+			_todoManager = new TodoItemManager();
+			// when the ItemsControl has been rendered, we can locate the ScrollViewer
+			// that is within its template.
+			_todoList.InvokeOnNextLayoutUpdated(() => LocateScrollViewer());
 
-      // when the ItemsControl has been rendered, we can locate the ScrollViewer
-      // that is within its template.
-      _todoList.InvokeOnNextLayoutUpdated(() => LocateScrollViewer());
+			IsEnabled = true;
+		}
 
-      IsEnabled = true;
-    }
+		private void LocateScrollViewer()
+		{
+			_scrollViewer = _todoList.Descendants<ScrollViewer>()
+									.Cast<ScrollViewer>()
+									.Single();
 
-    private void LocateScrollViewer()
-    {
-      _scrollViewer = _todoList.Descendants<ScrollViewer>()
-                              .Cast<ScrollViewer>()
-                              .Single();
+			// allow interactions to perform some action when the ScrollViewer has been located
+			// such as add event handlers
+			ScrollViewerLocated(_scrollViewer);
+		}
 
-      // allow interactions to perform some action when the ScrollViewer has been located
-      // such as add event handlers
-      ScrollViewerLocated(_scrollViewer);
-    }
+		protected virtual void ScrollViewerLocated(ScrollViewer scrollViewer)
+		{
+		}
 
-    protected virtual void ScrollViewerLocated(ScrollViewer scrollViewer)
-    {
-    }
+		public virtual void AddElement(FrameworkElement rootElement)
+		{
+		}
 
-    public virtual void AddElement(FrameworkElement rootElement)
-    {
-    }
+		public bool IsActive
+		{
+			get
+			{
+				return _isActive;
+			}
+			set
+			{
+				_isActive = value;
 
-    public bool IsActive
-    {
-      get
-      {
-        return _isActive;
-      }
-      set
-      {
-        _isActive = value;
+				if (_isActive == true)
+				{
+					if (Activated != null)
+					{
+						Activated(this, EventArgs.Empty);
+					}
+				}
+				else
+				{
+					if (DeActivated != null)
+					{
+						DeActivated(this, EventArgs.Empty);
+					}
+				}
+			}
+		}
 
-        if (_isActive == true)
-        {
-          if (Activated != null)
-          {
-            Activated(this, EventArgs.Empty);
-          }
-        }
-        else
-        {
-          if (DeActivated != null)
-          {
-            DeActivated(this, EventArgs.Empty);
-          }
-        }
-      }
-    }
+		public bool IsEnabled { get; set; }
 
-    public bool IsEnabled { get; set; }
-    
-    public event EventHandler Activated;
+		public event EventHandler Activated;
 
-    public event EventHandler DeActivated;
+		public event EventHandler DeActivated;
 
-    /// <summary>
-    /// Some interactions involve adding transformations or performing other visual modifications
-    /// to items within the list. When the interaction is complete, we need to remove these and return
-    /// the list to its original state. This method simply forces the ItemsControl to re-render all items.
-    /// </summary>
-    protected void RefreshView()
-    {
-      _todoItems.Reset();
-    }
-  }
+		/// <summary>
+		/// Some interactions involve adding transformations or performing other visual modifications
+		/// to items within the list. When the interaction is complete, we need to remove these and return
+		/// the list to its original state. This method simply forces the ItemsControl to re-render all items.
+		/// </summary>
+		protected void RefreshView()
+		{
+			_todoItems.Reset();
+		}
+	}
 }
